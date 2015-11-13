@@ -56,9 +56,9 @@ void setup() {
   fill(0); //Fill center point black
   line(20, win, winSize - 20, win); //X axis line
   line(win, 20, win, winSize - 20); //Y axis line
+}
 
-  draw();
-  
+void draw() {
   save("Example.png");
 }
 
