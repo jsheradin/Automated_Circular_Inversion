@@ -1,12 +1,12 @@
 //Graph settings
 float radius = 90; //Radius of the circle that will be used to map (pixles)
-int winSize = 600; //Window size in pixels (window is square) (pixels)
-float J = 0.03; //This is a constant that is used to scale the mapped bubbles. There are no units and it needs to be found experimentally.
+int winSize = 1000; //Window size in pixels (window is square) (pixels)
+float J = 0.06; //This is a constant that is used to scale the mapped bubbles. There are no units and it needs to be found experimentally.
 
 //Image settings
 int imgSizeX = 60; //Bottom Right X coordinate in pixels
 int imgSizeY = 60; //Bottom Right Y coordinate in pixles
-int imgOffX = -10; //Shift right in pixels
+int imgOffX = 78; //Shift right in pixels
 int imgOffY = -30; //Shif up in pixels
 
 //For storing original values
@@ -56,8 +56,10 @@ void setup() {
   fill(0); //Fill center point black
   line(20, win, winSize - 20, win); //X axis line
   line(win, 20, win, winSize - 20); //Y axis line
-  
+
   draw();
+  
+  save("Example.png");
 }
 
 //Take a point and make a corresponding point through circular inversion
