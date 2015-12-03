@@ -1,7 +1,8 @@
 //Graph settings
 float radius = 90; //Radius of the circle that will be used to map (pixles)
 int winSize = 1000; //Window size in pixels (window is square) (pixels)
-float J = 0.06; //This is a constant that is used to scale the mapped bubbles. There are no units and it needs to be found experimentally.
+float K = 0.00001; //Used to scale mapped pixel bubbles
+float scanRes = 0.075; //Increments used when scanning the image (MASSIVE impact on performance)
 
 //Image settings
 int imgSizeX = 60; //Bottom Right X coordinate in pixels
@@ -20,35 +21,34 @@ float newY = 0;
 //Misc other varables
 float distance; //Length of line from origin to P prime
 float theta; //Angle of the line from
-float win = winSize / 2; //A lot of calculations use this, so there is no point in calculating it each time
-float x; //Used for scanning
-float y; //Used for scanning
+int win = round(winSize / 2); //A lot of calculations use this, so there is no point in calculating it each time
 PImage img; //Decalre an image
 
 void setup() {
   size(winSize, winSize, P2D); //Set window size
+  print("Initializing... ");
   background(255); //Set background to white
   smooth(8); //Anti-Aliasing
   noLoop();
+  println("Done");
   
   //Place the image to be inverted
+  print("Loading Image... ");
   img = loadImage("face.jpg"); //Load file
   image(img, win - imgSizeX + imgOffX, win - imgSizeY - imgOffY, imgSizeX, imgSizeY); //Place it
+  println("Done");
   
   //Scan all pixels in the image and pass the values on to the graph function
-  x =  win - imgSizeX + imgOffX;
-  y =  win - imgSizeY - imgOffY;
-  
-  while (y <=  win - imgOffY) { //Scan Y from top to bottom
-    while (x <= win + imgOffX) { //Scan X from left to right
+  print("Mapping Image... ");
+  for(float y = win - imgSizeY - imgOffY; y <=  win - imgOffY; y += scanRes) { //Scan Y from top to bottom
+    for(float x = win - imgSizeX + imgOffX; x <= win + imgOffX; x += scanRes) { //Scan X from left to right
       project(x - win, y - win); //Pass 0'd values to the function
-      x++; //Move right
     }
-    y++; //Move down
-    x = win - imgSizeX + imgOffX; //Set X back to far left
   }
+  println("Done");
   
   //Draw graph elements
+  print("Printing... ");
   stroke(0);
   fill(255);
   ellipse(win, win, radius * 2, radius * 2); //Circle that points were inverted about
@@ -59,7 +59,10 @@ void setup() {
 }
 
 void draw() {
+  println("Done");
+  print("Saving...");
   save("Example.png");
+  println("Done");
 }
 
 //Take a point and make a corresponding point through circular inversion
@@ -82,7 +85,7 @@ void project(float origX, float origY) {
   color c = get(round(origX + win), round(origY + win)); //Get color of pixel
   stroke(c); //Set stroke to that color
   fill(c); //Set fill to that color
-  ellipse(newX + win, newY + win, distance * J, distance * J); //Draw the cirle
+  ellipse(newX + win, newY + win, pow(distance, 2) * K, pow(distance, 2) * K); //Draw the cirle
   /*
   The radius is proportional to distance as the circles will be more spread out as distance increases.
   This helps to fill in the gaps between the circles.
