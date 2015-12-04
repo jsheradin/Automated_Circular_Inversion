@@ -1,13 +1,13 @@
 //Graph settings
 float radius = 90; //Radius of the circle that will be used to map (pixles)
 int winSize = 1000; //Window size in pixels (window is square) (pixels)
-float K = 0.00002; //Used to scale mapped pixel bubbles
+float K = 0.000025; //Used to scale mapped pixel bubbles
 float scanRes = 0.145; //Increments used when scanning the image (MASSIVE impact on performance)
 
 //Image settings
 int imgSizeX = 60; //Bottom Right X coordinate in pixels
 int imgSizeY = 60; //Bottom Right Y coordinate in pixles
-int imgOffX = 78; //Shift right in pixels
+int imgOffX = 30; //Shift right in pixels
 int imgOffY = -30; //Shif up in pixels
 
 //For storing original values
@@ -86,7 +86,7 @@ void project(float origX, float origY) {
   color c = get(round(origX + win), round(origY + win)); //Get color of pixel
   stroke(c); //Set stroke to that color
   fill(c); //Set fill to that color
-  if(distance < win) {
+  if(distance < winSize) {
     ellipse(newX + win, newY + win, pow(distance, 2) * K, pow(distance, 2) * K); //Draw the cirle
   }
   /*
