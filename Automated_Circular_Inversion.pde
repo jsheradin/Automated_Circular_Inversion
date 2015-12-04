@@ -7,7 +7,7 @@ float scanRes = 0.145; //Increments used when scanning the image (MASSIVE impact
 //Image settings
 int imgSizeX = 60; //Bottom Right X coordinate in pixels
 int imgSizeY = 60; //Bottom Right Y coordinate in pixles
-int imgOffX = 30; //Shift right in pixels
+int imgOffX = 78; //Shift right in pixels
 int imgOffY = -30; //Shif up in pixels
 
 //For storing original values
