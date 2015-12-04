@@ -7,7 +7,7 @@ float scanRes = 0.145; //Increments used when scanning the image (MASSIVE impact
 //Image settings
 int imgSizeX = 60; //Bottom Right X coordinate in pixels
 int imgSizeY = 60; //Bottom Right Y coordinate in pixles
-int imgOffX = 78; //Shift right in pixels
+int imgOffX = 30; //Shift right in pixels
 int imgOffY = -30; //Shif up in pixels
 
 //For storing original values
@@ -86,7 +86,9 @@ void project(float origX, float origY) {
   color c = get(round(origX + win), round(origY + win)); //Get color of pixel
   stroke(c); //Set stroke to that color
   fill(c); //Set fill to that color
-  ellipse(newX + win, newY + win, pow(distance, 2) * K, pow(distance, 2) * K); //Draw the cirle
+  if(distance < win) {
+    ellipse(newX + win, newY + win, pow(distance, 2) * K, pow(distance, 2) * K); //Draw the cirle
+  }
   /*
   The radius is proportional to distance as the circles will be more spread out as distance increases.
   This helps to fill in the gaps between the circles.
