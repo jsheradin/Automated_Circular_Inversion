@@ -1,8 +1,8 @@
 //Graph settings
 float radius = 90; //Radius of the circle that will be used to map (pixles)
 int winSize = 1000; //Window size in pixels (window is square) (pixels)
-float K = 0.00001; //Used to scale mapped pixel bubbles
-float scanRes = 0.075; //Increments used when scanning the image (MASSIVE impact on performance)
+float K = 0.00002; //Used to scale mapped pixel bubbles
+float scanRes = 0.145; //Increments used when scanning the image (MASSIVE impact on performance)
 
 //Image settings
 int imgSizeX = 60; //Bottom Right X coordinate in pixels
@@ -39,13 +39,14 @@ void setup() {
   println("Done");
   
   //Scan all pixels in the image and pass the values on to the graph function
+  int timeStart = millis();
   print("Mapping Image... ");
   for(float y = win - imgSizeY - imgOffY; y <=  win - imgOffY; y += scanRes) { //Scan Y from top to bottom
     for(float x = win - imgSizeX + imgOffX; x <= win + imgOffX; x += scanRes) { //Scan X from left to right
       project(x - win, y - win); //Pass 0'd values to the function
     }
   }
-  println("Done");
+  println("Done in " + round((millis() - timeStart) / 1000) + " seconds");
   
   //Draw graph elements
   print("Printing... ");
