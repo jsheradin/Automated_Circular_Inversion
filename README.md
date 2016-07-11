@@ -1,4 +1,4 @@
-# Automated_Circular_Inversion
+# Picture_Circle_Inversion
 
 ### About
 Place an image and the program will graph the projected image through circular inversion.
